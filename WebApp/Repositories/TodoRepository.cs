@@ -1,43 +1,74 @@
 namespace WebApp.Repositories
 {
     using System;
-    using System.Linq;
+    using System.Data;
     using System.Collections.Generic;
+    using ServiceStack.OrmLite;
     using WebApp.Model;
     
     public class TodoRepository
     {
-        List<Todo> _todos = new List<Todo>();
-        
-        public List<Todo> GetByIds(long[] ids)
+        private readonly IDbConnection _db;
+
+        public TodoRepository(IDbConnectionFactory dbFactory)
         {
-            return this._todos.Where(x => ids.Contains(x.Id)).ToList();
+            this._db = dbFactory.OpenDbConnection();
         }
 
-        public List<Todo> GetAll()
+        public ICollection<Todo> GetByIds(ICollection<Guid> ids)
         {
-            return _todos;
+            ICollection<Todo> result = this._db.GetByIds<Todo>(ids);
+            return result;
+        }
+
+        public ICollection<Todo> GetAll()
+        {
+            ICollection<Todo> result = this._db.Select<Todo>();
+            return result;
         }
 
         public Todo Store(Todo todo)
         {
-            var existing = _todos.FirstOrDefault(x => x.Id == todo.Id);
-
-            if (existing == null)
+            try
             {
-                var newId = this._todos.Count > 0 ? this._todos.Max(x => x.Id) + 1 : 1;
-                todo.Id = newId;
-            
+                Todo result;
+                
+                bool isNew = todo.Id == Guid.Empty ? true : false;
+                
+                if (isNew)
+                {
+                    result = todo;
+                    result.Id = Guid.NewGuid();
+                }
+                else
+                {
+                    result = this._db.GetById<Todo>(todo.Id);  
+                    
+                    if (result == null)
+                    {
+                        throw new Exception("The given Todo Id is unknown or non-existent!");
+                    }
+                    
+                    result.Content = todo.Content;
+                    result.Order = todo.Order;
+                    result.Done = todo.Done;               
+                }
+                
+                this._db.Save<Todo>(result);
+                
+                
+                return result;
             }
-
-            this._todos.Add(todo);
-
-            return todo;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                throw;
+            }
         }
 
-        public void DeleteByIds(params long[] ids)
+        public void DeleteByIds(params Guid[] ids)
         {
-            this._todos.RemoveAll(x => ids.Contains(x.Id));
+            this._db.DeleteByIds<Todo>(ids);
         }
     }
 }

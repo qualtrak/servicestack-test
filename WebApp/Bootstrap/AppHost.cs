@@ -40,31 +40,37 @@ namespace WebApp.Bootstrap
             //Enable Authentication
             //ConfigureAuth(container);
 
-            //IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(":memory:", false, SqliteOrmLiteDialectProvider.Instance);
+            IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(":memory:", false, SqliteOrmLiteDialectProvider.Instance);
+            this.CreateSqliteInMemoryTables(dbFactory);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["QcoachServiceStack"].ConnectionString;
-            IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(connectionString, false, SqlServerOrmLiteDialectProvider.Instance);
+            //string connectionString = ConfigurationManager.ConnectionStrings["QcoachServiceStack"].ConnectionString;
+            //IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(connectionString, false, SqlServerOrmLiteDialectProvider.Instance);
 
+            container.Register<IDbConnectionFactory>(dbFactory);
+
+            //Register all your dependencies
+            container.Register(c => new TodoRepository(c.Resolve<IDbConnectionFactory>()));
+        }
+
+        
+        private void CreateSqliteInMemoryTables(IDbConnectionFactory dbFactory)
+        {
             try
             {
                 using (IDbConnection db = dbFactory.OpenDbConnection())
                 {
-                    db.CreateTable<Todo>(false);
-
-                    db.Insert<Todo>(new Todo { Content = "bla", Done = false, Order = 1 });
-                    long id = db.GetLastInsertId();
-                    Todo todo = db.GetById<Todo>(id);
-                    Console.WriteLine(todo.Content);
+                    db.CreateTable<Todo>(true);
+                    
+                    db.Insert<Todo>(new Todo { Id = Guid.NewGuid(), Content = "bla", Done = false, Order = 1 });
                 }   
             }
             catch (Exception ex)
-            {                
+            {       
+                Console.WriteLine(ex.StackTrace);
                 throw;
             }
-
-            //Register all your dependencies
-            container.Register(new TodoRepository());
         }
+
         /* Uncomment to enable ServiceStack Authentication and CustomUserSession
 		private void ConfigureAuth(Funq.Container container)
 		{
@@ -95,4 +101,5 @@ namespace WebApp.Bootstrap
 		}
 		*/
     }
+
 }

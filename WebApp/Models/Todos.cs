@@ -1,5 +1,6 @@
 namespace WebApp.Model
 {
+    using System;
     using System.Collections.Generic;
     using ServiceStack.ServiceHost;
 
@@ -8,8 +9,9 @@ namespace WebApp.Model
     [Route("/todos/{Ids}")]
     public class Todos : IReturn<List<Todo>>
     {
-        public long[] Ids { get; set; }
-        public Todos(params long[] ids)
+        public Guid[] Ids { get; set; }
+
+        public Todos(params Guid[] ids)
         {
             this.Ids = ids;
         }
