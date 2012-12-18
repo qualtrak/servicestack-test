@@ -68,3 +68,5 @@ _UpgradeReport_Files
 /UpgradeLog.htm
 
 msg.md
+
+ServiceStack.OrmLite/

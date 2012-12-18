@@ -1,8 +1,13 @@
 namespace WebApp.Bootstrap
 {
-
+    using ServiceStack.OrmLite;
+    using ServiceStack.OrmLite.SqlServer;
     using ServiceStack.ServiceInterface.Auth;
     using ServiceStack.WebHost.Endpoints;
+    using System;
+    using System.Configuration;
+    using System.Data;
+    using WebApp.Model;
     using WebApp.Repositories;
     using WebApp.Services;
 
@@ -33,6 +38,28 @@ namespace WebApp.Bootstrap
 
             //Enable Authentication
             //ConfigureAuth(container);
+
+           // IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(":memory:", false, SqliteOrmLiteDialectProvider.Instance);
+
+            string connectionString = ConfigurationManager.ConnectionStrings["QcoachServiceStack"].ConnectionString;
+            IDbConnectionFactory sqlServerFactory = new OrmLiteConnectionFactory(connectionString, false, SqlServerOrmLiteDialectProvider.Instance);
+
+            try
+            {
+                using (IDbConnection db = sqlServerFactory.OpenDbConnection())
+                {
+                    db.CreateTable<Todo>(false);
+
+                    db.Insert<Todo>(new Todo { Content = "bla", Done = false, Order = 1 });
+                    long id = db.GetLastInsertId();
+                    Todo todo = db.GetById<Todo>(id);
+                    Console.WriteLine(todo.Content);
+                }   
+            }
+            catch (Exception ex)
+            {                
+                throw;
+            }
 
             //Register all your dependencies
             container.Register(new TodoRepository());
