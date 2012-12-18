@@ -31,8 +31,7 @@ namespace WebApp.Repositories
         {
             try
             {
-                Todo result;
-                
+                Todo result;                
                 bool isNew = todo.Id == Guid.Empty ? true : false;
                 
                 if (isNew)

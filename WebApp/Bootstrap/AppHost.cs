@@ -40,11 +40,11 @@ namespace WebApp.Bootstrap
             //Enable Authentication
             //ConfigureAuth(container);
 
-            IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(":memory:", false, SqliteOrmLiteDialectProvider.Instance);
-            this.CreateSqliteInMemoryTables(dbFactory);
+            //IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(":memory:", false, SqliteOrmLiteDialectProvider.Instance);
+            //this.CreateSqliteInMemoryTables(dbFactory);
 
-            //string connectionString = ConfigurationManager.ConnectionStrings["QcoachServiceStack"].ConnectionString;
-            //IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(connectionString, false, SqlServerOrmLiteDialectProvider.Instance);
+            string connectionString = ConfigurationManager.ConnectionStrings["QcoachServiceStack"].ConnectionString;
+            IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(connectionString, false, SqlServerOrmLiteDialectProvider.Instance);
 
             container.Register<IDbConnectionFactory>(dbFactory);
 
