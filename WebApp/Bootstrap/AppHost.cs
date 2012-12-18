@@ -43,7 +43,7 @@ namespace WebApp.Bootstrap
             IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(":memory:", false, SqliteOrmLiteDialectProvider.Instance);
             this.CreateSqliteInMemoryTables(dbFactory);
 
-            //string connectionString = ConfigurationManager.ConnectionStrings["QcoachServiceStack"].ConnectionString;
+            //string connectionString = ConfigurationManager.ConnectionStrings["ServiceStackTest"].ConnectionString;
             //IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(connectionString, false, SqlServerOrmLiteDialectProvider.Instance);
 
             container.Register<IDbConnectionFactory>(dbFactory);
