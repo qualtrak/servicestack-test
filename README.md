@@ -2,7 +2,7 @@
 
 ## .NET - Mono switching
 
-### When in Mono - Monodevelop
+### When in Mono - Monodevelop (Tested on Mac OS X Mountain Lion)
 
 * In `WebApp.Bootstrap.AppHost` uncomment _Sqlite_ and comment _SQL Server_:
 
@@ -44,7 +44,7 @@ IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(connectionString, 
 
 ### Create Tables
 
-* Add CreateSqliteInMemoryTables below the dbFactory of SQL Server.
+* Add `CreateSqliteInMemoryTables` below the dbFactory of SQL Server.
 * After first run make sure this line of code is commented, because it will always DROP Table and recreate it.
 
 ```csharp
