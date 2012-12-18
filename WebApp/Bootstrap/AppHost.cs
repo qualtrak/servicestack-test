@@ -1,3 +1,5 @@
+using ServiceStack.OrmLite.Sqlite;
+
 namespace WebApp.Bootstrap
 {
     using ServiceStack.OrmLite;
@@ -39,14 +41,14 @@ namespace WebApp.Bootstrap
             //Enable Authentication
             //ConfigureAuth(container);
 
-           // IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(":memory:", false, SqliteOrmLiteDialectProvider.Instance);
+            IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(":memory:", false, SqliteOrmLiteDialectProvider.Instance);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["QcoachServiceStack"].ConnectionString;
-            IDbConnectionFactory sqlServerFactory = new OrmLiteConnectionFactory(connectionString, false, SqlServerOrmLiteDialectProvider.Instance);
+//            string connectionString = ConfigurationManager.ConnectionStrings["QcoachServiceStack"].ConnectionString;
+//            IDbConnectionFactory dbFactory = new OrmLiteConnectionFactory(connectionString, false, SqlServerOrmLiteDialectProvider.Instance);
 
             try
             {
-                using (IDbConnection db = sqlServerFactory.OpenDbConnection())
+                using (IDbConnection db = dbFactory.OpenDbConnection())
                 {
                     db.CreateTable<Todo>(false);
 

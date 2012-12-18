@@ -38,9 +38,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MySql.Data">
-      <HintPath>..\packages\MySql.Data.6.5.4\lib\net40\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\packages\protobuf-net.2.0.0.612\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
@@ -77,6 +74,7 @@
     <Reference Include="WebActivator">
       <HintPath>..\packages\WebActivator.1.5.2\lib\net40\WebActivator.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Data.Sqlite" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\js\ss-validation.js" />
@@ -85,6 +83,9 @@
     <Content Include="README.txt" />
     <Content Include="Web.config" />
     <Content Include="index.html" />
+    <Content Include="sqlite3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -115,6 +116,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349C5851-65DF-11DA-9384-00065B846F21}">
@@ -150,12 +152,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack.OrmLite\src\ServiceStack.OrmLite.SqlServer\ServiceStack.OrmLite.SqlServer.csproj">
-      <Project>{1887dc99-9139-43e3-a7aa-6d74714b3a5d}</Project>
+      <Project>{1887DC99-9139-43E3-A7AA-6D74714B3A5D}</Project>
       <Name>ServiceStack.OrmLite.SqlServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServiceStack.OrmLite\src\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj">
-      <Project>{96179ac6-f6f1-40c3-9fdd-4f6582f54c5c}</Project>
+      <Project>{96179AC6-F6F1-40C3-9FDD-4F6582F54C5C}</Project>
       <Name>ServiceStack.OrmLite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStack.OrmLite\src\ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.csproj">
+      <Project>{CF68A37D-D071-469D-AE04-68594CB95382}</Project>
+      <Name>ServiceStack.OrmLite.Sqlite</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
