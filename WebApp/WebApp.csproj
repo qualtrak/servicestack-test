@@ -43,6 +43,12 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>..\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.32\lib\net35\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.612\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack">
       <HintPath>..\packages\ServiceStack.3.9.32\lib\net35\ServiceStack.dll</HintPath>
     </Reference>
@@ -55,11 +61,18 @@
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>..\packages\ServiceStack.Common.3.9.32\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite">
-      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.32\lib\ServiceStack.OrmLite.dll</HintPath>
+    <Reference Include="ServiceStack.OrmLite, Version=3.9.32.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.32\lib\net35\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.Sqlite">
+      <HintPath>..\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.32\lib\net35\ServiceStack.OrmLite.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite.SqlServer">
       <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.32\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Plugins.ProtoBuf">
+      <HintPath>..\packages\ServiceStack.Plugins.ProtoBuf.3.9.32\lib\net35\ServiceStack.Plugins.ProtoBuf.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Redis">
       <HintPath>..\packages\ServiceStack.Redis.3.9.32\lib\net35\ServiceStack.Redis.dll</HintPath>
@@ -86,6 +99,9 @@
     <Content Include="Global.asax" />
     <Content Include="jqunback-1.51.min.js" />
     <Content Include="README.txt" />
+    <Content Include="sqlite\x64\sqlite3.dll" />
+    <Content Include="sqlite\x86\sqlite3.dll" />
+    <Content Include="sqlite\x86\sqlite3.exe" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
