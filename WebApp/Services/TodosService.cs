@@ -1,5 +1,6 @@
 namespace WebApp.Services
 {
+    using System.Collections.Generic;
     using ServiceStack.Common;
     using ServiceStack.ServiceInterface;  
     using WebApp.Model;
@@ -14,13 +15,10 @@ namespace WebApp.Services
             this._repository = repository;
         }
 
-        // public TodoRepository Repository { get; private set; }  //Injected by IOC
-
         public object Get(Todos request)
         {
-            return request.Ids.IsEmpty()
-                ? this._repository.GetAll()
-                : this._repository.GetByIds(request.Ids);
+            ICollection<Todo> result = this._repository.GetAll();
+            return result;
         }
 
         public object Post(Todo todo)

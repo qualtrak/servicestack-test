@@ -15,7 +15,7 @@ namespace WebApp.Repositories
             this._db = dbFactory.OpenDbConnection();
         }
 
-        public ICollection<Todo> GetByIds(ICollection<Guid> ids)
+        public ICollection<Todo> GetByIds(Guid[] ids)
         {
             ICollection<Todo> result = this._db.GetByIds<Todo>(ids);
             return result;
@@ -65,7 +65,7 @@ namespace WebApp.Repositories
             }
         }
 
-        public void DeleteByIds(params Guid[] ids)
+        public void DeleteByIds(ICollection<Guid> ids)
         {
             this._db.DeleteByIds<Todo>(ids);
         }

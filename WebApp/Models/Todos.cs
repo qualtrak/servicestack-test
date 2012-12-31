@@ -7,11 +7,11 @@ namespace WebApp.Model
     // REST Resource DTO
     [Route("/todos")]
     [Route("/todos/{Ids}")]
-    public class Todos : IReturn<List<Todo>>
+    public class Todos : IReturn<ICollection<Todo>>
     {
-        public Guid[] Ids { get; set; }
+        public ICollection<Guid> Ids { get; set; }
 
-        public Todos(params Guid[] ids)
+        public Todos(ICollection<Guid> ids)
         {
             this.Ids = ids;
         }
